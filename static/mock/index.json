@@ -1,0 +1,32 @@
+{
+  "result" : true,
+  "message" : null,
+  "data" : {
+  	"title":"网站运营需要关注哪些数据?",
+  	"author":"赵岩",
+  	"date":"2019-04-22 10:08",
+  	"tab1":"网站运营",
+  	"tab2":"数据指标",
+  	"tab3":"获客",
+  	"artical":"",
+  	"prev":" 电商用户生命周期价值及运营策略",
+  	"next":"易观荣获“中国数据智能创新企业50强”",
+    "num":9,
+    "articlePojoList" : [ {
+      "articleId" : 16,
+      "title" : "标题15"
+    }, {
+      "articleId" : 15,
+      "title" : "标题14"
+    }, {
+      "articleId" : 14,
+      "title" : "标题13"
+    }, {
+      "articleId" : 13,
+      "title" : "标题12"
+    }, {
+      "articleId" : 12,
+      "title" : "标题11"
+    } ]
+  }
+}

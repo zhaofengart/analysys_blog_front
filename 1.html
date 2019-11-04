@@ -1,0 +1,51 @@
+<!-- <!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="http://localhost:8080/uploads" method="post" enctype="multipart/form-data">
+        <input type="file" name="uploadFiles" value="选择文件" multiple>
+        <input type="submit" value="上传">
+    </form>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+	<div id="contentDiv"></div>
+	<div id="deleteResult"></div>
+	<input type="button" value="提交数据" onclick="getData()"><br>
+	<input type="button" value="删除数据" onclick="deleteData()"><br>
+	<script>
+		function getData() {
+			$.ajax({
+				url:'http://localhost:8081/book/',
+				type:'post',
+				data:{name:'三国演义'},
+				success:function(msg){
+					$("#contentDiv").html(msg);
+				}
+			})
+		}
+		function deleteData() {
+			$.ajax({
+				url:'http://localhost:8081/book/99',
+				type:'delete',
+				success:function (msg) {
+					$("#deleteResult").html(msg);
+				}
+			})
+		}
+	</script>
+</body>
+</html>
