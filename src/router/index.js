@@ -1,6 +1,8 @@
 /* eslint-disable */
 import Vue from 'vue'
 import Router from 'vue-router'
+import VueResource from 'vue-resource'
+
 import Home from '@/Home/Home'
 import NewLoginhome from '@/Login/NewLoginhome'
 import OldLoginhome from '@/Login/OldLoginhome'
@@ -9,6 +11,7 @@ import '@/assets/styles/icon-font/iconfont.css'
 import axios from 'axios'
 
 Vue.use(Router)
+Vue.use(VueResource)
 
 export default new Router({
   routes: [

@@ -159,7 +159,7 @@ export default {
           data: params
         }).then(response => {
           if (response.data.code === 0) {
-            console.log(response.data.data)
+            console.log('文章总数为' + response.data.data)
             // let pageNum = response.data.data
             // this.totalNumOfArticle = pageNum % 10 == 0 ? pageNum / 10 : pageNum /10 + 1
           }

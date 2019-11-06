@@ -34,7 +34,9 @@ export default{
 	},
 	props:['articleId'],
 	created(){
-		this.getArticle('文章详情组件中文章id' + this.articleId)
+    this.getArticle('文章详情组件中文章id' + this.articleId)
+    // 初始化
+    this.getArticle(this.articleId)
 	},
 	methods:{
 		getArticle(articleId){
@@ -42,7 +44,7 @@ export default{
 			params.append("articleId", articleId)
 			// axios封装
 	  		axios({
-	  			url:'http://106.13.226.142:8093/api/blog/getArticle',
+	  			url:'/api/blog/getArticle',
 	  			method:'post',
 	  			data: params
 	  		})
@@ -52,12 +54,7 @@ export default{
 	  		this.article = res.data.data.article
         this.previous = res.data.data.previous
         this.next = res.data.data.next
-        if(!this.previous){
-          this.preshow=false
-        }
-        if(!this.next){
-          this.nextshow=false
-        }
+        console.log(res.data.data)
   		},
   		getPrevious() {
           this.getArticle(this.previous.articleId)
@@ -75,9 +72,8 @@ export default{
       
   },
   watch: {
-    // 监听相同路由下参数变化的时候，从而实现异步刷新
+    // 监听相同路由下参数变化的时候，从而实现异步刷新,此处不需要获取路由参数
     '$route' (to, from) {
-      this.articleId = this.$route.articleId
       this.getArticle(this.articleId)
       console.log('文章详情组件监听路由' + '文章id：' + this.articleId)
     }
