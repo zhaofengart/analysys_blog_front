@@ -97,6 +97,9 @@ export default {
     }
   },
     created () {
+      // 重新读取类别和标签id
+      this.categoryId = this.$route.categoryId
+      this.tagId = this.$route.tagId
       this.init()
       this.getPopularTagList()
       this.getPopularArticleList()

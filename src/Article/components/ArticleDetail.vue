@@ -34,7 +34,7 @@ export default{
 	},
 	props:['articleId'],
 	created(){
-		this.getArticle(articleId)
+		this.getArticle('文章详情组件中文章id' + this.articleId)
 	},
 	methods:{
 		getArticle(articleId){
@@ -77,8 +77,9 @@ export default{
   watch: {
     // 监听相同路由下参数变化的时候，从而实现异步刷新
     '$route' (to, from) {
+      this.articleId = this.$route.articleId
       this.getArticle(this.articleId)
-      console.log('监听路由')
+      console.log('文章详情组件监听路由' + '文章id：' + this.articleId)
     }
   }
 	

@@ -26,13 +26,13 @@
     },
     created () {
       this.articleId = this.$route.query.articleId
-      console.log(this.articleId)
+      console.log('文章详情页' + this.articleId)
     },
     watch: {
       // 监听相同路由下参数变化的时候，从而实现异步刷新
       '$route' (to, from) {
         this.articleId = this.$route.query.articleId
-        console.log(this.articleId)
+        console.log('文章详情页路由监控' +this.articleId)
       }
     }
   
