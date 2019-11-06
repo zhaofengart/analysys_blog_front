@@ -34,6 +34,7 @@
 	</div>
 </template>
 <script>
+/* eslint-disable */
 import VueEvent from '@/module/VueEvent.js'
 import axios from 'axios'
 export default{
@@ -60,7 +61,7 @@ export default{
 		getHomeInfo(){
 			//axios封装
 	  		axios({
-	  			url:'http://localhost:8081/user/index',
+	  			url:'/api/user/index',
 	  			method:'get',
 	  			 // headers:{
        //  			'Content-type': 'application/x-www-form-urlencoded'
@@ -78,7 +79,7 @@ export default{
 	  		})
 	  		  .then(this.handleGetCityInfoSucc)
 	  		axios({
-	  			url:'http://10.161.56.34:8080/blog/6',
+	  			url:'/api/blog/6',
 	  			method:'get'
 	  		})
 	  		  .then(this.handleGetCityInfoSucc)

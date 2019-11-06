@@ -1,64 +1,65 @@
+/* eslint-disable */ 
 <template>
-  <div id="all">
-    <div id="part2-1" class="container">
-      <div id="tab" class="max-760">
-      <div class="menu-container">
+  <div id='all'>
+    <div id='part2-1' class='container'>
+      <div id='tab' class='max-760'>
+      <div class='menu-container'>
         <i></i>
         <i></i>
-        <li><a href="">最新文章</a></li>
-        <li><a href="">产品动态</a></li>
-        <li><a href="">客户案例</a></li>
-        <li><a href="">数据分析方法</a></li>
-        <li><a href="">市场活动</a></li>
+        <li><a href=''>最新文章</a></li>
+        <li><a href=''>产品动态</a></li>
+        <li><a href=''>客户案例</a></li>
+        <li><a href=''>数据分析方法</a></li>
+        <li><a href=''>市场活动</a></li>
       </div>
       </div>
     </div>
     
-    <div id="part2-2" class="container">
-      <div id="artical-box" class="max-760">
-        <div class="artical" v-for="art in articals_tag" :key="art.index" >
-          <img src="https://ark.analysys.cn/blog/wp-content/201904/222.png" alt="" class="art-img" width="200px" height="120px">{{art.src}}
-          <div class="art-right">
-             <p class="hd">
+    <div id='part2-2' class='container'>
+      <div id='artical-box' class='max-760'>
+        <div class='artical' v-for='art in articals_tag' :key='art.index' >
+          <img src='https://ark.analysys.cn/blog/wp-content/201904/222.png' alt='' class='art-img' width='200px' height='120px'>{{art.src}}
+          <div class='art-right'>
+             <p class='hd'>
                 <router-link to='/article'>
                    {{art.text}}
                 </router-link>
              </p>
-             <div class="art-main" ><p>{{art.zhaiyao}}</p></div>
-               <div class="art-msg">
-                 <img src="https://ark.analysys.cn/blog/images/index/author.png" alt="" style="float:left;margin:0;">
+             <div class='art-main' ><p>{{art.zhaiyao}}</p></div>
+               <div class='art-msg'>
+                 <img src='https://ark.analysys.cn/blog/images/index/author.png' alt='' style='float:left;margin:0;'>
                  <span >&nbsp;&nbsp;{{art.author}}</span>
                  <span>&nbsp;&nbsp;{{art.time}}</span>
-                 <div class="art-tag" id="inline">
+                 <div class='art-tag' id='inline'>
                    <i></i>                               
-                 <a href="" v-for="m in art.tag" :key="m.index" >{{m}}&nbsp;</a>
+                 <a href='' v-for='m in art.tag' :key='m.index' >{{m}}&nbsp;</a>
                  </div>
                </div>
-               <div class="art-tag" id="secondline">
+               <div class='art-tag' id='secondline'>
                    <i></i>                               
-                 <a href="" v-for="m in art.tag" :key="m.index" >{{m}}&nbsp;</a>
+                 <a href='' v-for='m in art.tag' :key='m.index' >{{m}}&nbsp;</a>
                  </div>
            </div>
         </div>
-        <div class="max-760 pages">
-          <div id="page">
-            <a href="#">上一页</a>
-            <a href="#" v-for="i in art_page" :key="i.id">{{i}}</a>
-            <a href="#">下一页</a>
+        <div class='max-760 pages'>
+          <div id='page'>
+            <a href='#'>上一页</a>
+            <a href='#' v-for='i in art_page' :key='i.id'>{{i}}</a>
+            <a href='#'>下一页</a>
           </div>
         </div>
       </div>
-      <div class="part2-2-2">
-        <div id="hot-tag-box">
-            <div id="hot-tag" >
-              <p style="margin:0;margin-bottom:0px;">热门标签</p><br>
-                <a v-for="index in tags" :key="index" href="#" :style="{fontSize:index.font_size,paddingBottom:'10px',paddingRight:'2px'}">{{ index.text }}</a>
+      <div class='part2-2-2'>
+        <div id='hot-tag-box'>
+            <div id='hot-tag' >
+              <p style='margin:0;margin-bottom:0px;'>热门标签</p><br>
+                <a v-for='index in tags' :key='index' href='#' :style="{fontSize:index.font_size,paddingBottom:'10px',paddingRight:'2px'}">{{ index.text }}</a>
             </div>
         </div>
-        <div id="hot-artical-box">
-            <div id="hot-artical" >
-              <p style="margin:0;margin-bottom:0;padding:0;">热门文章</p><br>
-                <li v-for="index in articals_tag.slice(0,5)" :key="index" ><a href="#" >{{ index.text }}</a></li>
+        <div id='hot-artical-box'>
+            <div id='hot-artical' >
+              <p style='margin:0;margin-bottom:0;padding:0;'>热门文章</p><br>
+                <li v-for='index in articals_tag.slice(0,5)' :key='index' ><a href='#' >{{ index.text }}</a></li>
             </div>
         </div>
       </div>
@@ -78,168 +79,166 @@ export default {
       ],
       tags:[
       {
-      "text": "互联网金融",
-      "font_size": "16px",
-      "id": 1,
-      "url": ""
+      'text': '互联网金融',
+      'font_size': '16px',
+      'id': 1,
+      'url': ''
     },
     {
-      "text": "APP运营",
-      "font_size": "16px",
-      "id": 2,
-      "url": ""
+      'text': 'APP运营',
+      'font_size': '16px',
+      'id': 2,
+      'url': ''
     },
     {
-      "text": "精准营销",
-      "font_size": "22px",
-      "id": 3,
-      "url": ""
+      'text': '精准营销',
+      'font_size': '22px',
+      'id': 3,
+      'url': ''
     },
     {
-      "text": "用户体验",
-      "font_size": "12px",
-      "id": 4,
-      "url": ""
+      'text': '用户体验',
+      'font_size': '12px',
+      'id': 4,
+      'url': ''
     },
     {
-      "text": "大数据",
-      "font_size": "28px",
-      "id": 5,
-      "url": ""
+      'text': '大数据',
+      'font_size': '28px',
+      'id': 5,
+      'url': ''
     },
     {
-      "text": "产品运营",
-      "font_size": "22px",
-      "id": 6,
-      "url": ""
+      'text': '产品运营',
+      'font_size': '22px',
+      'id': 6,
+      'url': ''
     },
     {
-      "text": "Argo",
-      "font_size": "22px",
-      "id": 7,
-      "url": ""
+      'text': 'Argo',
+      'font_size': '22px',
+      'id': 7,
+      'url': ''
     },
     {
-      "text": "广告跟踪",
-      "font_size": "12px",
-      "id": 8,
-      "url": ""
+      'text': '广告跟踪',
+      'font_size': '12px',
+      'id': 8,
+      'url': ''
     },
     {
-      "text": "转化漏斗",
-      "font_size": "22px",
-      "id": 9,
-      "url": ""
+      'text': '转化漏斗',
+      'font_size': '22px',
+      'id': 9,
+      'url': ''
     },
     {
-      "text": "电商",
-      "font_size": "16px",
-      "id": 10,
-      "url": ""
+      'text': '电商',
+      'font_size': '16px',
+      'id': 10,
+      'url': ''
     },
     {
-      "text": "精细化运营",
-      "font_size": "28px",
-      "id": 11,
-      "url": ""
+      'text': '精细化运营',
+      'font_size': '28px',
+      'id': 11,
+      'url': ''
     },
     {
-      "text": "用户增长",
-      "font_size": "16px",
-      "id": 12,
-      "url": ""
+      'text': '用户增长',
+      'font_size': '16px',
+      'id': 12,
+      'url': ''
     },
     {
-      "text": "数据分析",
-      "font_size": "28px",
-      "id": 13,
-      "url": ""
+      'text': '数据分析',
+      'font_size': '28px',
+      'id': 13,
+      'url': ''
     },
     {
-      "text": "产品经理",
-      "font_size": "16px",
-      "id": 14,
-      "url": ""
+      'text': '产品经理',
+      'font_size': '16px',
+      'id': 14,
+      'url': ''
     },
     {
-      "text": "数据驱动",
-      "font_size": "16px",
-      "id": 15,
-      "url": ""
+      'text': '数据驱动',
+      'font_size': '16px',
+      'id': 15,
+      'url': ''
     },
     {
-      "text": "用户运营",
-      "font_size": "28px",
-      "id": 16,
-      "url": ""
+      'text': '用户运营',
+      'font_size': '28px',
+      'id': 16,
+      'url': ''
     },
     {
-      "text": "用户召回营",
-      "font_size": "16px",
-      "id": 17,
-      "url": ""
+      'text': '用户召回营',
+      'font_size': '16px',
+      'id': 17,
+      'url': ''
     },
     {
-      "text": "易观方舟",
-      "font_size": "28px",
-      "id": 18,
-      "url": ""
+      'text': '易观方舟',
+      'font_size': '28px',
+      'id': 18,
+      'url': ''
     },
     {
-      "text": "用户画像",
-      "font_size": "28px",
-      "id": 19,
-      "url": ""
+      'text': '用户画像',
+      'font_size': '28px',
+      'id': 19,
+      'url': ''
     },
     {
-      "text": "易观开发者沙龙",
-      "font_size": "16px",
-      "id": 20,
-      "url": ""
+      'text': '易观开发者沙龙',
+      'font_size': '16px',
+      'id': 20,
+      'url': ''
     }
       ]
       ,
       articals_tag:[
         {
-      "text": "电商用户生命周期价值及运营策略",
-      "url": "",
-      "id": 1,
-      "zhaiyao": "为什么要了解用户生命周期价值？这要从推广渠道价值说起，前面我们提到过易观方舟可以通过广告来源跟踪，以及判断不同流量渠道的转化率等等等",
-      "author": "赵岩",
-      "time": "2019-05-17 18:06",
-      "tag": [
-        "生命周期",
-        "电商"
+      'text': '电商用户生命周期价值及运营策略',
+      'url': '',
+      'id': 1,
+      'zhaiyao': '为什么要了解用户生命周期价值？这要从推广渠道价值说起，前面我们提到过易观方舟可以通过广告来源跟踪，以及判断不同流量渠道的转化率等等等',
+      'author': '赵岩',
+      'time': '2019-05-17 18:06',
+      'tag': [
+        '生命周期',
+        '电商'
       ]
     },
     {
-      "text": "探寻证券数字发展，易观“证券行业数字发展”论坛圆满举办ooooo",
-      "url": "",
-      "id": 2
+      'text': '探寻证券数字发展，易观“证券行业数字发展”论坛圆满举办ooooo',
+      'url': '',
+      'id': 2
     },
     {
-      "text": "易观荣获“中国数据智能创新企业50强”",
-      "url": "",
-      "id": 3
+      'text': '易观荣获“中国数据智能创新企业50强”',
+      'url': '',
+      'id': 3
     },
     {
-      "text": "数据分析里的细分维度",
-      "url": "",
-      "id": 4
+      'text': '数据分析里的细分维度',
+      'url': '',
+      'id': 4
     },
     {
-      "text": "银行产品运营如何同时分析网站和APP",
-      "url": "",
-      "id": 5
+      'text': '银行产品运营如何同时分析网站和APP',
+      'url': '',
+      'id': 5
     }
       ]
     }
   },
   methods:{
    
-    
-  },
-  
+  }
 }
 </script>
 
@@ -257,7 +256,7 @@ export default {
   margin: 0;
   overflow: hidden;
   position: relative;
-  //top:-35px;
+/* top:-35px; */
 }
 #secondline{
   display: none;
@@ -365,12 +364,12 @@ export default {
   margin: 0;
   padding: 0 15px;
   box-sizing: border-box;
-  //background-color: #feb167;
+  /* background-color: #feb167; */
   float: left;
 }
 .artical{
   height:167px;
-  //background-color: #bbb;
+  /* background-color: #bbb; */
 }
 #main{
   position: relative;
