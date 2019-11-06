@@ -17,52 +17,52 @@
     
     <div id='part2-2' class='container'>
       <div id='artical-box' class='max-760'>
-        <div class='artical' v-for='art in articals_tag' :key='art.index' >
-          <img src='https://ark.analysys.cn/blog/wp-content/201904/222.png' alt='' class='art-img' width='200px' height='120px'>{{art.src}}
+        <div class='artical' v-for="item in articleList" :key="item.articleId" >
+          <img :src="item.imgPath" alt='' class='art-img' width='200px' height='120px'>
           <div class='art-right'>
              <p class='hd'>
-                <router-link to='/article'>
-                   {{art.text}}
+                <router-link :to="{path: '/articleDetail', query: {articleId: item.articleId}}">
+                   {{item.title}}
                 </router-link>
              </p>
-             <div class='art-main' ><p>{{art.zhaiyao}}</p></div>
+             <div class='art-main' ><p>{{item.summary}}</p></div>
                <div class='art-msg'>
                  <img src='https://ark.analysys.cn/blog/images/index/author.png' alt='' style='float:left;margin:0;'>
-                 <span >&nbsp;&nbsp;{{art.author}}</span>
-                 <span>&nbsp;&nbsp;{{art.time}}</span>
+                 <span >&nbsp;&nbsp;{{item.realname}}</span>
+                 <span>&nbsp;&nbsp;{{item.issueTime}}</span>
                  <div class='art-tag' id='inline'>
                    <i></i>                               
-                 <a href='' v-for='m in art.tag' :key='m.index' >{{m}}&nbsp;</a>
+                 <a href='' v-for="tag in item.tagList" :key="tag.tagId" >{{tag.tagName}}&nbsp;</a>
                  </div>
                </div>
-               <div class='art-tag' id='secondline'>
+               <!-- <div class='art-tag' id='secondline'>
                    <i></i>                               
                  <a href='' v-for='m in art.tag' :key='m.index' >{{m}}&nbsp;</a>
-                 </div>
+                 </div> -->
            </div>
         </div>
         <div class='max-760 pages'>
           <div id='page'>
             <a href='#'>上一页</a>
-            <a href='#' v-for='i in art_page' :key='i.id'>{{i}}</a>
+            <!-- <a href='#' v-for='i in art_page' :key='i.id'>{{i}}</a> -->
             <a href='#'>下一页</a>
           </div>
         </div>
       </div>
-      <div class='part2-2-2'>
+      <!-- <div class='part2-2-2'>
         <div id='hot-tag-box'>
             <div id='hot-tag' >
               <p style='margin:0;margin-bottom:0px;'>热门标签</p><br>
-                <a v-for='index in tags' :key='index' href='#' :style="{fontSize:index.font_size,paddingBottom:'10px',paddingRight:'2px'}">{{ index.text }}</a>
+                <a v-for="item in tagList" :key="item.tagId" href='#' :style="{fontSize:index.font_size,paddingBottom:'10px',paddingRight:'2px'}">{{ item.tagName }}</a>
             </div>
         </div>
         <div id='hot-artical-box'>
             <div id='hot-artical' >
               <p style='margin:0;margin-bottom:0;padding:0;'>热门文章</p><br>
-                <li v-for='index in articals_tag.slice(0,5)' :key='index' ><a href='#' >{{ index.text }}</a></li>
+                <li v-for="item in popularArticleList" :key="item.articleId" ><a href='#' >{{ item.title }}</a></li>
             </div>
         </div>
-      </div>
+      </div> -->
     </div>
       
   </div>
@@ -72,7 +72,136 @@
 export default {
   name: 'HomeTab',
   data () {
+    
     return {
+      articleList: [],
+      totalNumOfArticle: 1,
+      currentPageNum: 1,
+      categoryId: null,
+      tagId: null,
+      tagList: [],
+      popularArticleList: []
+    }
+  },
+    created () {
+      this.init()
+      this.getPopularTagList()
+      this.getPopularArticleList()
+    },
+    methods: {
+      init: function () {
+        console.log(this.categoryId)
+        console.log(this.tagId)
+
+        if (this.categoryId != null) {
+          let params = new URLSearchParams()
+          params.append('categoryId', this.categoryId)
+          let url = 'http://106.13.226.142:8093/api/blog/category/'
+
+          this.getArticle(url, params)
+        } else if (this.tagId != null) {
+          let params = new URLSearchParams()
+          params.append('tagId', this.tagId)
+          let url = 'http://106.13.226.142:8093/api/blog/tag/'
+
+          this.getArticle(url, params)
+        } else {
+          let url = '/api/blog/'
+
+          this.getArticle(url, null)
+        }
+
+        this.getNumOfArticle()
+      },
+      getArticle: function (url, params) {
+        this.$ajax({
+          method: 'post',
+          url: url,
+          data: params
+        }).then(response => {
+          if (response.data.code === 0) {
+            this.articleList = response.data.data
+            console.log(response.data.data)
+          }
+        }).catch(function (error) {
+          console.log(error)
+        })
+      },
+      getNumOfArticle: function () {
+        let params = new URLSearchParams()
+        if (this.categoryId) {
+          params.append('categoryId', this.categoryId)
+        }
+        if (this.tagId) {
+          params.append('tagId', this.tagId)
+        }
+
+        this.$ajax({
+          method: 'post',
+          url: 'http://106.13.226.142:8093/api/blog/getTotalNumOfArticle',
+          data: params
+        }).then(response => {
+          if (response.data.code === 0) {
+            console.log(response.data.data)
+            this.totalNumOfArticle = response.data.data
+          }
+        }).catch(function (error) {
+          console.log(error)
+        })
+      },
+      turnPage: function (value) {
+        this.currentPageNum = value
+        let params = new URLSearchParams()
+        let url = ''
+        if (this.categoryId) {
+          params.append('categoryId', this.categoryId)
+          params.append('pageNo', this.currentPageNum)
+          url = 'http://106.13.226.142:8093/api/blog/category/'
+        } else if (this.tagId) {
+          params.append('tagId', this.tagId)
+          params.append('pageNo', this.currentPageNum)
+          url = 'http://106.13.226.142:8093/api/blog/category/'
+        }
+
+        this.$ajax({
+          method: 'post',
+          url: url,
+          params: params
+        }).then(response => {
+          this.articleList = response.data.data
+          console.log(this.currentPageNum)
+          console.log(this.articleList)
+        }).catch((err) => {
+          console.log(err)
+        })
+      },
+      getPopularTagList() {
+        this.$http.post('http://106.13.226.142:8093/api/blog/tag/getPopularTag').then((data) => {
+        if (data.body.code === 0) {
+          this.tagList = data.body.data
+          console.log(data.body.data)
+        } else {
+          console.log('获取热门标签失败')
+        } 
+        })
+      },
+      getPopularArticleList() {
+        this.$http.post('http://106.13.226.142:8093/api/blog/getPopularArticle').then((data) => {
+        if (data.body.code === 0) {
+          this.popularArticleList = data.body.data
+          console.log(data.body.data)
+        } else {
+          console.log('获取热门文章失败')
+        }
+    })
+      }
+  },
+  watch: {
+    // 监听相同路由下参数变化的时候，从而实现异步刷新
+    '$route' (to, from) {
+      this.init()
+    }
+  },
       msg: 'Welcome to Your Vue.js App',
       art_page : [1,2,3,4
       
@@ -235,11 +364,6 @@ export default {
     }
       ]
     }
-  },
-  methods:{
-   
-  }
-}
 </script>
 
 <style scoped>
