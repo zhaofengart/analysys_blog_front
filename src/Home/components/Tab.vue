@@ -49,11 +49,12 @@
           </div>
         </div>
       </div>
-      <!-- <div class='part2-2-2'>
+      <div class='part2-2-2'>
         <div id='hot-tag-box'>
             <div id='hot-tag' >
               <p style='margin:0;margin-bottom:0px;'>热门标签</p><br>
-                <a v-for="item in tagList" :key="item.tagId" href='#' :style="{fontSize:index.font_size,paddingBottom:'10px',paddingRight:'2px'}">{{ item.tagName }}</a>
+                <!-- <a v-for="item in tagList" :key="item.tagId" href='#' :style="{fontSize:index.font_size,paddingBottom:'10px',paddingRight:'2px'}">{{ item.tagName }}</a> -->
+            <li v-for="item in tagList" :key="item.tagId"  ><a href='#' >{{ item.tagName }}</a></li>
             </div>
         </div>
         <div id='hot-artical-box'>
@@ -62,7 +63,7 @@
                 <li v-for="item in popularArticleList" :key="item.articleId" ><a href='#' >{{ item.title }}</a></li>
             </div>
         </div>
-      </div> -->
+      </div>
     </div>
       
   </div>
@@ -96,13 +97,13 @@ export default {
         if (this.categoryId != null) {
           let params = new URLSearchParams()
           params.append('categoryId', this.categoryId)
-          let url = 'http://106.13.226.142:8093/api/blog/category/'
+          let url = '/api/blog/category/'
 
           this.getArticle(url, params)
         } else if (this.tagId != null) {
           let params = new URLSearchParams()
           params.append('tagId', this.tagId)
-          let url = 'http://106.13.226.142:8093/api/blog/tag/'
+          let url = '/api/blog/tag/'
 
           this.getArticle(url, params)
         } else {
@@ -138,7 +139,7 @@ export default {
 
         this.$ajax({
           method: 'post',
-          url: 'http://106.13.226.142:8093/api/blog/getTotalNumOfArticle',
+          url: '/api/blog/getTotalNumOfArticle',
           data: params
         }).then(response => {
           if (response.data.code === 0) {
@@ -156,11 +157,11 @@ export default {
         if (this.categoryId) {
           params.append('categoryId', this.categoryId)
           params.append('pageNo', this.currentPageNum)
-          url = 'http://106.13.226.142:8093/api/blog/category/'
+          url = '/api/blog/category/'
         } else if (this.tagId) {
           params.append('tagId', this.tagId)
           params.append('pageNo', this.currentPageNum)
-          url = 'http://106.13.226.142:8093/api/blog/category/'
+          url = '/api/blog/category/'
         }
 
         this.$ajax({
@@ -176,7 +177,7 @@ export default {
         })
       },
       getPopularTagList() {
-        this.$http.post('http://106.13.226.142:8093/api/blog/tag/getPopularTag').then((data) => {
+        this.$http.post('/api/blog/tag/getPopularTag').then((data) => {
         if (data.body.code === 0) {
           this.tagList = data.body.data
           console.log(data.body.data)
@@ -186,7 +187,7 @@ export default {
         })
       },
       getPopularArticleList() {
-        this.$http.post('http://106.13.226.142:8093/api/blog/getPopularArticle').then((data) => {
+        this.$http.post('/api/blog/getPopularArticle').then((data) => {
         if (data.body.code === 0) {
           this.popularArticleList = data.body.data
           console.log(data.body.data)

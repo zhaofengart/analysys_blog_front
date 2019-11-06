@@ -10,15 +10,16 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    //  proxyTable: {
-    '/api': {
-      target: 'http://106.13.226.142:8093/',  //目标接口域名
-      changeOrigin: true,  //是否跨域
-      pathRewrite: {
-        '^/api': ''   //重写接口
+    proxyTable: {
+      '/api': {
+        target: 'http://106.13.226.142:8093/', //目标接口域名
+        changeOrigin: true, //是否跨域
+        pathRewrite: {
+          '^/api': '/api' //重写接口
+        }
       }
     },
-  // cssSourceMap: false
+    // cssSourceMap: false
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
