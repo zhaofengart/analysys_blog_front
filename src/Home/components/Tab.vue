@@ -44,7 +44,7 @@
         <div class='max-760 pages'>
           <div id='page'>
             <a href='#'>上一页</a>
-            <!-- <a href='#' v-for='i in art_page' :key='i.id'>{{i}}</a> -->
+            <a href='#' v-for='i in totalNumOfArticle' :key='i'>{{i}}</a>
             <a href='#'>下一页</a>
           </div>
         </div>
@@ -143,7 +143,8 @@ export default {
         }).then(response => {
           if (response.data.code === 0) {
             console.log(response.data.data)
-            this.totalNumOfArticle = response.data.data
+            // let pageNum = response.data.data
+            // this.totalNumOfArticle = pageNum % 10 == 0 ? pageNum / 10 : pageNum /10 + 1
           }
         }).catch(function (error) {
           console.log(error)
