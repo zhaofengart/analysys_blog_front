@@ -53,8 +53,7 @@
         <div id='hot-tag-box'>
             <div id='hot-tag' >
               <p style='margin:0;margin-bottom:0px;'>热门标签</p><br>
-                <!-- <a v-for="item in tagList" :key="item.tagId" href='#' :style="{fontSize:index.font_size,paddingBottom:'10px',paddingRight:'2px'}">{{ item.tagName }}</a> -->
-            <li v-for="item in tagList" :key="item.tagId"  ><a href='#' >{{ item.tagName }}</a></li>
+                <a v-for="item in tagList" :key="item.tagId" href='#' :style="{fontSize:item.size,paddingBottom:'10px',paddingRight:'2px'}">{{ item.tagName }}</a>
             </div>
         </div>
         <div id='hot-artical-box'>
