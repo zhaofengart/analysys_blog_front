@@ -6,11 +6,17 @@
       <div class='menu-container'>
         <i></i>
         <i></i>
+        <router-link to="/">
         <li><a href=''>最新文章</a></li>
+      </router-link>
+        <!-- <li><a href=''>最新文章</a></li>
         <li><a href=''>产品动态</a></li>
         <li><a href=''>客户案例</a></li>
         <li><a href=''>数据分析方法</a></li>
-        <li><a href=''>市场活动</a></li>
+        <li><a href=''>市场活动</a></li> -->
+        <router-link :to="{path: '/', query: {categoryId: item.categoryId}}" v-for="item in categoryList" :key="item.categoryId">
+        <li><a href=''>{{item.categoryName}}</a></li>
+      </router-link>
       </div>
       </div>
     </div>
@@ -21,7 +27,7 @@
           <img :src="item.imgPath" alt='' class='art-img' width='200px' height='120px'>
           <div class='art-right'>
              <p class='hd'>
-                <router-link :to="{path: '/articleDetail', query: {articleId: item.articleId}}">
+                <router-link :to="{path: '/article', query: {articleId: item.articleId}}">
                    {{item.title}}
                 </router-link>
              </p>
@@ -53,13 +59,19 @@
         <div id='hot-tag-box'>
             <div id='hot-tag' >
               <p style='margin:0;margin-bottom:0px;'>热门标签</p><br>
-                <a v-for="item in tagList" :key="item.tagId" href='#' :style="{fontSize:item.size,paddingBottom:'10px',paddingRight:'2px'}">{{ item.tagName }}</a>
+                <router-link :to="{path: '/', query: {tagId: item.tagId}}" v-for="item in tagList" :key="item.tagId">       
+                <a :style="{fontSize:item.size,paddingBottom:'10px',paddingRight:'2px'}">{{ item.tagName }}</a>
+                </router-link>
             </div>
         </div>
         <div id='hot-artical-box'>
             <div id='hot-artical' >
               <p style='margin:0;margin-bottom:0;padding:0;'>热门文章</p><br>
-                <li v-for="item in popularArticleList" :key="item.articleId" ><a href='#' >{{ item.title }}</a></li>
+                <li v-for="item in popularArticleList" :key="item.articleId" >
+                  <router-link :to="{path: '/article', query: {articleId: item.articleId}}">
+                    <a href='#' >{{ item.title }}</a>
+                  </router-link>
+                </li>
             </div>
         </div>
       </div>
@@ -80,13 +92,15 @@ export default {
       categoryId: null,
       tagId: null,
       tagList: [],
-      popularArticleList: []
+      popularArticleList: [],
+      categoryList: []
     }
   },
     created () {
       this.init()
       this.getPopularTagList()
       this.getPopularArticleList()
+      this.getAllCategoryList()
     },
     methods: {
       init: function () {
@@ -195,11 +209,23 @@ export default {
           console.log('获取热门文章失败')
         }
     })
+      },
+      getAllCategoryList() {
+        this.$http.post('/api/blog/category/getAllCategory').then((data) => {
+      if (data.body.code === 0) {
+        this.categoryList = data.body.data
+        console.log(data.body.data)
+      } else {
+        console.log('获取热门标签失败')
+      }
+    })
       }
   },
   watch: {
     // 监听相同路由下参数变化的时候，从而实现异步刷新
     '$route' (to, from) {
+      this.tagId = this.$route.query.tagId
+      this.categoryId = this.$route.query.categoryId
       this.init()
     }
   },
