@@ -10,11 +10,15 @@
         </div>
         <div id='hot-artical-box'>
             <div id='hot-artical' >
-              <p style='margin:0;margin-bottom:0;padding:0;'>热门文章</p><br>
-                <li v-for="item in popularArticleList" :key="item.articleId" >
-                  <router-link :to="{path: '/article', query: {articleId: item.articleId}}">
+              <p style='margin:0;margin-bottom:0;padding:0;'>相关推荐：</p><br>
+                <li v-for="item in relatedArticleList" :key="item.articleId" >
+                  <!-- <router-link :to="{path: '/article', query: {articleId: item.articleId}}">
                     <a href='#' >{{ item.title }}</a>
+                  </router-link> -->
+                  <router-link target="_blank" :to="{path:'/article',query:{articleId: item.articleId}}">
+                    {{ item.title }}
                   </router-link>
+                  
                 </li>
             </div>
         </div>
@@ -26,7 +30,7 @@
 		data () {
 		    return {
           tagList: [],
-          popularArticleList: [],
+          relatedArticleList: [],
 		      msg: 'Welcome to Your Vue.js App',
 		      art_page : [1,2,3,4],
 		      tags:[
@@ -188,9 +192,11 @@
 		      ]
 		    }
       },
+      props:['articleId'],
       created() {
         this.getPopularTagList()
-        this.getPopularArticleList()
+        this.getRelatedArticleList(this.articleId)
+        console.log('热门标签第一次加载')
       },
       methods: {
         getPopularTagList() {
@@ -203,17 +209,38 @@
         } 
         })
       },
-      getPopularArticleList() {
-        this.$http.post('/api/blog/getPopularArticle').then((data) => {
-          if (data.body.code === 0) {
-            this.popularArticleList = data.body.data
-            console.log(data.body.data)
-          } else {
-            console.log('获取热门文章失败')
+      getRelatedArticleList(articleId) {
+        let params = new URLSearchParams()
+        params.append('articleId', articleId)
+        this.$ajax({
+          method: 'post',
+          url: '/api/blog/getRelatedRecommendationArticles',
+          data: params
+        }).then(response => {
+          if (response.data.code === 0) {
+            this.relatedArticleList = response.data.data
+            console.log(this.relatedArticleList)
           }
+        }).catch(function (error) {
+          console.log(error)
         })
-        }
+      },
+      mounted: function() {
+        console.log('相关推荐mouted')
+        this.articleId = this.$route.query.articleId
+        this.getRelatedArticleList(this.articleId)
+      },
+      watch: {
+      // 监听相同路由下参数变化的时候，从而实现异步刷新,此处不需要获取路由参数
+      '$route' (to, from) {
+        this.getPopularTagList()
+        this.getRelatedArticleList(this.articleId)
+        console.log('相关文章组件监听路由' + '文章id：' + this.articleId)
       }
+    }
+
+        
+    }
 	}
 </script>
 <style scoped>

@@ -49,9 +49,13 @@
         </div>
         <div class='max-760 pages'>
           <div id='page'>
-            <a href='#'>上一页</a>
-            <a href='#' v-for='i in totalNumOfArticle' :key='i'>{{i}}</a>
-            <a href='#'>下一页</a>
+            <a v-if="currentPageNum != 1" v-on:click="previousPage()">上一页</a>
+            <a v-else href ="javascript:return false;" onclick="return false;"  style="opacity: 0.2">上一页</a>
+
+            <a href='#' v-for='i in pageCount' :key='i' v-on:click="turnPage(i)">{{i}}</a>
+            
+            <a v-if="currentPageNum != pageCount" href='#' v-on:click="nextPage()">下一页</a>
+            <a v-else href ="javascript:return false;" onclick="return false;"  style="opacity: 0.2">下一页</a>
           </div>
         </div>
       </div>
@@ -87,10 +91,10 @@ export default {
     
     return {
       articleList: [],
-      totalNumOfArticle: 1,
+      pageCount: 1,
       currentPageNum: 1,
-      categoryId: null,
-      tagId: null,
+      categoryId: '',
+      tagId: '',
       tagList: [],
       popularArticleList: [],
       categoryList: []
@@ -104,11 +108,12 @@ export default {
       this.getPopularTagList()
       this.getPopularArticleList()
       this.getAllCategoryList()
+      this.getNumOfArticle()
     },
     methods: {
       init: function () {
-        console.log(this.categoryId)
-        console.log(this.tagId)
+        console.log('类别' + this.categoryId)
+        console.log('标签' + this.tagId)
 
         if (this.categoryId != null) {
           let params = new URLSearchParams()
@@ -160,26 +165,36 @@ export default {
         }).then(response => {
           if (response.data.code === 0) {
             console.log('文章总数为' + response.data.data)
-            // let pageNum = response.data.data
-            // this.totalNumOfArticle = pageNum % 10 == 0 ? pageNum / 10 : pageNum /10 + 1
+            var pageNum = Number(response.data.data)
+
+            this.pageCount = Math.ceil(pageNum % 10) == 0 ? Math.ceil(pageNum / 10) - 1:Math.ceil(pageNum / 10)
           }
         }).catch(function (error) {
           console.log(error)
         })
       },
+      nextPage: function() {
+        this.currentPageNum = this.currentPageNum + 1
+        this.turnPage(this.currentPageNum)
+      },
+      previousPage: function() {
+        this.currentPageNum = this.currentPageNum - 1
+        this.turnPage(this.currentPageNum)
+      },
       turnPage: function (value) {
         this.currentPageNum = value
+        console.log('点击的页码' + this.currentPageNum)
         let params = new URLSearchParams()
-        let url = ''
+        // undefined参数不能传，会出错
         if (this.categoryId) {
-          params.append('categoryId', this.categoryId)
-          params.append('pageNo', this.currentPageNum)
-          url = '/api/blog/category/'
+          params.append('categoryId', this.categoryId)        
         } else if (this.tagId) {
           params.append('tagId', this.tagId)
-          params.append('pageNo', this.currentPageNum)
-          url = '/api/blog/category/'
         }
+        // 传入页码
+        params.append('pageNo', this.currentPageNum)
+        
+        let url = '/api/blog/page/new'
 
         this.$ajax({
           method: 'post',
