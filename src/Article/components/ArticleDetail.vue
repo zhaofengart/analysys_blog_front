@@ -87,7 +87,7 @@ export default{
 		padding:0;
 	}
 	.view{
-		width: 60%;
+		width: 50%;
 		margin-left: 5%;
 		margin-bottom: 20px;
 	}

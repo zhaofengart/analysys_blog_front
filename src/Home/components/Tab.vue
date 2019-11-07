@@ -37,8 +37,11 @@
                  <span >&nbsp;&nbsp;{{item.realname}}</span>
                  <span>&nbsp;&nbsp;{{item.issueTime}}</span>
                  <div class='art-tag' id='inline'>
-                   <i></i>                               
-                 <a href='' v-for="tag in item.tagList" :key="tag.tagId" >{{tag.tagName}}&nbsp;</a>
+                   <i></i>   
+                   <router-link :to="{path: '/', query: {tagId: tag.tagId}}" v-for="tag in item.tagList" :key="tag.tagId" >  
+                   <a>{{tag.tagName}}&nbsp;</a>
+                   </router-link>
+                 <!-- <a href='' v-for="tag in item.tagList" :key="tag.tagId" >{{tag.tagName}}&nbsp;</a> -->
                  </div>
                </div>
                <!-- <div class='art-tag' id='secondline'>
