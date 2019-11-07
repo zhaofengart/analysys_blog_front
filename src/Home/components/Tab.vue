@@ -53,12 +53,12 @@
         <div class='max-760 pages'>
           <div id='page'>
             <a v-if="currentPageNum != 1" v-on:click="previousPage()">上一页</a>
-            <a v-else href ="javascript:return false;" onclick="return false;"  style="opacity: 0.2">上一页</a>
+            <a v-else href ="javascript:return false;" onclick="return false;" class="unUseble" >上一页</a>
 
-            <a href='#' v-for='i in pageCount' :key='i' v-on:click="turnPage(i)">{{i}}</a>
+            <a :class='{isActive: i == currentPageNum }' v-for='(i,index) in pageCount' :key='index' v-on:click="turnPage(i)">{{i}}</a>
             
             <a v-if="currentPageNum != pageCount" href='#' v-on:click="nextPage()">下一页</a>
-            <a v-else href ="javascript:return false;" onclick="return false;"  style="opacity: 0.2">下一页</a>
+            <a v-else href ="javascript:return false;" onclick="return false;"  class="unUseble">下一页</a>
           </div>
         </div>
       </div>
@@ -515,6 +515,7 @@ export default {
 #page a{
     position: relative;
     float: left;
+    cursor: Default;
     padding: 6px 12px;
     margin-left: -1px;
     line-height: 1.42857143;
@@ -771,6 +772,17 @@ img{
   #secondline{
       display: block;
   }
+}
+.isActive{
+    color: #fff !important;
+    cursor: default;
+    background-color: #337ab7 !important;
+    border-color: #337ab7;
+}
+.unUseble:hover{
+  cursor:not-allowed !important;
+  color: #337ab7 !important;
+  background-color: #fff !important;
 }
 
 

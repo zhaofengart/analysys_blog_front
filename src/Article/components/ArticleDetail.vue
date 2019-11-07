@@ -1,6 +1,6 @@
 <template>
 	<div class="view">
-		<div class="place">当前位置：<span>易观方舟></span><span>知识库></span><span>{{article.title}}</span></div>
+		<span class="place">当前位置：易观方舟> 知识库>{{article.title}}</span>
 		<h3>{{article.title}}</h3>
 		<i class="iconfont icon-yonghu"></i>
 		<span class="issueTime">易观 {{article.issueTime}}</span>
@@ -88,10 +88,12 @@ export default{
 	}
 	.view{
 		width: 50%;
-		margin-left: 5%;
+		margin-left: 10%;
 		margin-bottom: 20px;
 	}
 	.place{
+    /* word-break: keep-all; */
+    white-space: nowrap;
 		font-size: 13px;
 	}
 	h3{

@@ -247,8 +247,8 @@
 .part2-2-2{
 	position: absolute;
 	top: 100px;
-	left:65%;
-  	width: 25%;
+	left:60%;
+  width: 15%;
 }
 #secondline{
   display: none;
@@ -367,6 +367,7 @@
   position: relative;
 }
 #hot-tag-box,#hot-artical-box{
+    width:80%;
     margin: 0;
     padding: 0;
     float: left;
@@ -381,7 +382,7 @@
 }
 #hot-artical-box{
     margin: 20px 0 30px 0;
-    width: 100%;
+    /* width: 100%; */
 }
 #hot-tag a{
       text-decoration: underline;
