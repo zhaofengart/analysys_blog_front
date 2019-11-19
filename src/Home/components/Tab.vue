@@ -107,6 +107,7 @@ export default {
       // 重新读取类别和标签id
       this.categoryId = this.$route.categoryId
       this.tagId = this.$route.tagId
+      console.log('标签id' + this.tagId + '类别id' + this.categoryId)
       this.init()
       this.getPopularTagList()
       this.getPopularArticleList()
@@ -242,11 +243,15 @@ export default {
     })
       }
   },
+  // mounted() {
+  //   this.tagId = this.$route.query.tagId
+  // },
   watch: {
     // 监听相同路由下参数变化的时候，从而实现异步刷新
     '$route' (to, from) {
       this.tagId = this.$route.query.tagId
       this.categoryId = this.$route.query.categoryId
+      console.log('路由监听标签id' + this.tagId + '类别id' + this.categoryId)
       this.init()
     }
   },
